@@ -4,7 +4,9 @@ import main.java.by.task4.model.Employees;
 import main.java.by.task4.repository.Repository;
 import main.java.by.task4.units.Counter;
 
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Service {
     private final Scanner scanner = new Scanner(System.in);
@@ -19,7 +21,9 @@ public class Service {
         scanner.nextLine();
         System.out.println("Введите имя сотрудника.");
         String employeeName = scanner.nextLine();
-        System.out.println(repository.getByName(employeeName) + "\n");
+        String employees = repository.getByName(employeeName).stream().map(Employees::toString)
+                .collect(Collectors.joining("\n"));
+        System.out.println(employees + "\n");
     }
 
     public void getEmployeeById() {
@@ -33,7 +37,9 @@ public class Service {
         scanner.nextLine();
         System.out.println("Введите стаж сотрудника.");
         int employeeStage = scanner.nextInt();
-        System.out.println(repository.getByStage(employeeStage) + "\n");
+        String employees = repository.getByStage(employeeStage).stream().map(Employees::toString)
+                .collect(Collectors.joining("\n"));
+        System.out.println(employees + "\n");
     }
 
     public void showPhoneNumber() {
@@ -44,8 +50,9 @@ public class Service {
     }
 
     public String getEmployeesPhoneByName(String name) {
-        Employees byName = repository.getByName(name);
-        return byName.getPhoneNumber();
+        List<Employees> byName = repository.getByName(name);
+        return byName.stream().map(Employees::getPhoneNumber).collect(Collectors.joining("\n"));
+
     }
 
     public void prepareForCreate() {
@@ -64,5 +71,4 @@ public class Service {
         repository.addEmployeesRepository(employee);
         counter.add();
     }
-
 }

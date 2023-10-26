@@ -11,5 +11,4 @@ public class Counter {
     public int getCounter() {
         return counter;
     }
-
 }
