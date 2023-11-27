@@ -1,16 +1,23 @@
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
+q
 public class Main {
 
     public static void main(String[] args) {
 
+        double scale = Math.pow(10, 1);
+        double luckyResultsGame1 = Math.ceil((luckProbability(winningCounts(gameWithChanges()))) * scale) / scale;
+        double badLuck1 = (Math.ceil(luckyResultsGame1 * scale) / scale - 100) * (-1);
+        double luckyResultsGame2 = Math.ceil((luckProbability(winningCounts(gameWithoutChanges()))) * scale) / scale;
+        double badLuck2 = (Math.ceil(luckyResultsGame2 * scale) / scale - 100) * (-1);
+
         System.out.println("If the participant changes his choice during the game, then the probability of luck = " +
-                luckProbability(winningCounts(gameWithChanges())) + "%");
-        System.out.println("If the participant doesn't change his choice during the game, then the probability of luck = " +
-                luckProbability(winningCounts(gameWithoutChanges())) + "%");
+                luckyResultsGame1 + "%" + "\nand the probability of bad luck = " + badLuck1 + "%");
+
+        System.out.println("If the participant changes his choice during the game, then the probability of luck = " +
+                luckyResultsGame2 + "%" + "\nand the probability of bad luck = " + badLuck2 + "%");
+
     }
 
     public static Map<Integer, Boolean> gameWithoutChanges() {
@@ -65,10 +72,8 @@ public class Main {
                 .count();
     }
 
-    public static String luckProbability(long count) {
-        double value = (double) count / 1000 * 100;
-        DecimalFormat decimalFormat = new DecimalFormat( "#.###" );
-        return decimalFormat.format(value);
+    public static double luckProbability(long count) {
+        return (double) count / 1000 * 100;
     }
 
 }
