@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-q
+
 public class Main {
 
     public static void main(String[] args) {
